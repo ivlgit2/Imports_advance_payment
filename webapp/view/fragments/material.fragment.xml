@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Material" class="sapUiPopupWithPadding"
+		items="{path: 'MasterData>/company_code',sorter:{path:'bukrs',ascending: true}}" confirm="_handleValueHelpCloseCmpny"
+		cancel="_handleValueHelpCloseCmpny" liveChange="_handleValueHelpSearchCmpny">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{MasterData>bukrs}" description="{MasterData>butxt}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

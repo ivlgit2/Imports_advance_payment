@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Incoterms" class="sapUiPopupWithPadding"
+		items="{cmnService>/incoterm}" confirm="_handleValueHelpInco"
+		cancel="_handleValueHelpInco" liveChange="_handleValueHelpSearchCmpny">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{cmnService>inco1}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

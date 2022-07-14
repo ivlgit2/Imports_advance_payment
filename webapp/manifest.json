@@ -1,0 +1,160 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "bri.IMPORTS_ADV_PAYMENT",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponentForManifest",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"SB_ILC": {
+				"uri": "/abap/sap/opu/odata/BRI/SB_ILC/",
+				"type": "OData",
+				"settings": {
+					"localUri": "localService/metadata.xml"
+				}
+			},
+			"CMN_SERVICES": {
+				"uri": "/abap/sap/opu/odata/BRI/CMN_SERVICES/",
+				"type": "OData",
+				"settings": {
+					"localUri": "localService/CMN_SERVICES/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": false,
+		"rootView": {
+			"viewName": "bri.IMPORTS_ADV_PAYMENT.view.app",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.65.6",
+			"libs": {
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "bri.IMPORTS_ADV_PAYMENT.i18n.i18n"
+				}
+			},
+			"masterModel": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "SB_ILC",
+				"preload": true
+			},
+			"cmnService": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "CMN_SERVICES",
+				"preload": true
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "bri.IMPORTS_ADV_PAYMENT.view",
+				"controlAggregation": "pages",
+				"controlId": "app",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "app",
+					"pattern": "",
+					"target": [
+						"TargetimpAPList"
+					]
+				},
+				{
+					"name": "ImpAPcreate",
+					"pattern": "ImpAPcreate/{withRefTo}/{withCalTo}/{withDocNo}/{withKeyNo}/{withKeyPoNo}",
+					"target": [
+						"ImpAPcreate"
+					]
+				},
+				{
+					"name": "impAPedit",
+					"pattern": "impAPedit/{advrefno}",
+					"target": [
+						"impAPedit"
+					]
+				}
+			],
+			"targets": {
+				"TargetimpAPList": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "impAPList",
+					"viewName": "impAPList"
+				},
+				"ImpAPcreate": {
+					"viewType": "XML",
+					"viewName": "ImpAPcreate"
+				},
+				"impAPedit": {
+					"viewType": "XML",
+					"viewName": "impAPedit"
+				},
+				"app": {
+					"viewType": "XML",
+					"viewName": "app"
+				}
+			}
+		}
+	}
+}

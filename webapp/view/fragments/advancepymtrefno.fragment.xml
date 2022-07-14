@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Advance reference Number" class="sapUiPopupWithPadding"
+		items="{path: 'masterModel>/xBRIxi_ILCADVMASTR',sorter:{path:'aprefnr',descending: true}}" confirm="_handleValueHelpCloseCmpny"
+		cancel="_handleValueHelpCloseCmpny" liveChange="_handleValueHelpSearchCmpny">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{masterModel>aprefnr}" description="{masterModel>aprefnr}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

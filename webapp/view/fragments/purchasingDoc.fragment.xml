@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Purchasing Document No" class="sapUiPopupWithPadding"
+		items="{searchHelpModel>/results}" confirm="_handleValueHelpPO"
+		cancel="_handleValueHelpPO" liveChange="_handleValueHelpSearchCmpny">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{searchHelpModel>ebeln}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

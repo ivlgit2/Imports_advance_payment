@@ -1,0 +1,183 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="bri.IMPORTS_ADV_PAYMENT.controller.impAPList" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!--<App>-->
+	<!--	<pages>-->
+	<Page title="Advance Payment - Imports">
+		<content>
+			<l:VerticalLayout width="100%" class="filterbarBackgroundStyle">
+				<fb:FilterBar reset="onReset" search="onSearch" header="" class="FilterBarClass" showRestoreButton="true" showClearButton="true"
+					clear="clearFilter" id="idFilterBar">
+					<fb:filterItems>
+						<fb:FilterItem name="fbOpenDt" label="Advance Ref Number From">
+							<fb:control>
+								<Label text="Advance Ref Number From"/>
+								<Input enabled="{State>/enable}" type="Text" value="{Lists>contype}" maxLength="10" showSuggestion="true" showValueHelp="true"
+									valueHelpRequest="handleValueHelpTypeAdvRefNo" suggestionItems="{path: 'masterdata>/results',templateShareable: false}"
+									suggest="handleCmnValueHelp" id="type">
+									<suggestionItems>
+										<core:ListItem key="{masterdata>Title}" text="{masterdata>Title}" additionalText="{masterdata>Description}"/>
+									</suggestionItems>
+								</Input>
+							</fb:control>
+						</fb:FilterItem>
+						<fb:FilterItem name="fbOpenDt1" label="Advance Ref Number To">
+							<fb:control>
+								<Label text="Advance Ref Number To"/>
+								<Input enabled="{State>/enable}" type="Text" value="{Lists>contype}" maxLength="10" showSuggestion="true" showValueHelp="true"
+									valueHelpRequest="handleValueHelpTypeAdvRefNo" suggestionItems="{path: 'masterdata>/results',templateShareable: false}"
+									suggest="handleCmnValueHelp" id="type1">
+									<suggestionItems>
+										<core:ListItem key="{masterdata>Title}" text="{masterdata>Title}" additionalText="{masterdata>Description}"/>
+									</suggestionItems>
+								</Input>
+							</fb:control>
+						</fb:FilterItem>
+					</fb:filterItems>
+				</fb:FilterBar>
+			</l:VerticalLayout>
+			<t:Table id="advpymnttbl" rowHeight="62%" class="sapUiSizeCompact" selectionMode="None" rowSelectionChange="onSelectionChange"
+				cellClick="onCellClick" visibleRowCount="6" enableCellFilter="" filter="filterPrice" ariaLabelledBy="title" visible="false"
+				rows="{advModel>/results}">
+				<t:columns>
+					<t:Column width="9rem" id="aprefnr" filterProperty="PONumber">
+						<Label text="Advance Reference Number"/>
+						<t:template>
+							<Link text="{advModel>aprefnr}" emphasized="true" wrapping="false" press="onPressApRef"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="bankrefno" filterProperty="PONumber">
+						<Label text="Bank Reference Number"/>
+						<t:template>
+							<Text text="{advModel>bankrefno}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="bnkadvdet" filterProperty="BL">
+						<Label text="Bank Advice Details"/>
+						<t:template>
+							<Text text="{advModel>bnkadvdet}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="bankrefdate" filterProperty="BL">
+						<Label text="Bank Reference Date"/>
+						<t:template>
+							<Text text="{ path: 'advModel>bankrefdate',formatter: 'Container.Formatter.ConvertJsonDate' }" wrapping="false"/>
+							
+						</t:template>
+					</t:Column>
+					<t:Column width="10rem" id="remittancedate" filterProperty="BL">
+						<Label text="Bank Remittance Date"/>
+						<t:template>
+							<Text text="{ path: 'advModel>remittancedate',formatter: 'Container.Formatter.ConvertJsonDate' }" wrapping="false"/>
+							
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="purpofx" filterProperty="BL">
+						<Label text="Purpose Of Foreign Exchange"/>
+						<t:template>
+							<Text text="{advModel>purpofx}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="advamountfc" filterProperty="BL">
+						<Label text="Advance Payment Amount"/>
+						<t:template>
+							<Text text="{advModel>advamountfc}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="kursf" filterProperty="BL">
+						<Label text="Exchange Rate"/>
+						<t:template>
+							<Text text="{advModel>kursf}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="advamountlc" filterProperty="BL">
+						<Label text="Advance Payment in INR"/>
+						<t:template>
+							<Text text="{advModel>advamountlc}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="bankl" filterProperty="BL">
+						<Label text="Remittance Bank"/>
+						<t:template>
+							<Text text="{advModel>bankl}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="hktid" filterProperty="BL">
+						<Label text="Account ID"/>
+						<t:template>
+							<Text text="{advModel>hktid}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="swift" filterProperty="BL">
+						<Label text="Swift Code"/>
+						<t:template>
+							<Text text="{advModel>swift}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="benbankl" filterProperty="BL">
+						<Label text="Beneficiary Bank"/>
+						<t:template>
+							<Text text="{advModel>benbankl}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="bankcurr" filterProperty="BL">
+						<Label text="Currency"/>
+						<t:template>
+							<Text text="{advModel>bankcurr}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="telexcharge" filterProperty="BL">
+						<Label text="Tele Exchange Amount"/>
+						<t:template>
+							<Text text="{advModel>telexcharge}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="swiftcharges" filterProperty="BL">
+						<Label text="Swift Charge Amount"/>
+						<t:template>
+							<Text text="{advModel>swiftcharges}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="bankcomm" filterProperty="BL">
+						<Label text="Bank Comm Amount"/>
+						<t:template>
+							<Text text="{advModel>bankcomm}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="inco1" filterProperty="BL">
+						<Label text="Incoterms"/>
+						<t:template>
+							<Text text="{advModel>inco1}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="cntryorg" filterProperty="BL">
+						<Label text="Country Of Origin"/>
+						<t:template>
+							<Text text="{advModel>cntryorg}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="consignctry" filterProperty="BL">
+						<Label text="Consignee Country"/>
+						<t:template>
+							<Text text="{advModel>consignctry}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="9rem" id="shipmode" filterProperty="BL">
+						<Label text="Shipment Mode"/>
+						<t:template>
+							<Text text="{advModel>shipmode}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+				</t:columns>
+			</t:Table>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Create" icon="sap-icon://write-new" press="onPressCreate"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+	<!--	</pages>-->
+	<!--</App>-->
+</mvc:View>

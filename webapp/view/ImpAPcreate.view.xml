@@ -1,0 +1,402 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="bri.IMPORTS_ADV_PAYMENT.controller.ImpAPcreate"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" displayBlock="true"
+	xmlns:t="sap.ui.table">
+	<!--<App>-->
+	<!--	<pages>-->
+	<!--<SplitApp id="SplitAppPo" initialDetail="idNNDOdetailPage" initialMaster="master">-->
+	<!--	<detailPages>-->
+	<Page title="Create Advance Payment" id="ContChange" floatingFooter="true" showNavButton="true" navButtonPress="onNavBack"
+		class="sapUiStdPage">
+		<headerContent>
+			<Label text="With Reference To : "/>
+			<Text id="refTo" width="10rem" text=""/>
+		</headerContent>
+		<content>
+			<IconTabBar id="idIconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://contacts" text="Header Details">
+						<f:SimpleForm id="headerDetailsform" title="Header Details" editable="true" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6"
+							labelSpanM="6" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3"
+							columnsL="2" columnsM="2" singleContainerFullSize="false">
+							<f:content>
+								<core:Title/>
+								<Label text="Company Code"/>
+								<Input id="bukrs" type="Text" value="{advCreateHDRModel>/bukrs}" textFormatMode="Key" placeholder="Enter Vendor name..."
+									showSuggestion="true" showValueHelp="true" suggestionItemSelected="suggestionItemSelected" enabled="false" maxLength="10"
+									valueHelpRequest="handleCmnValueHelp" suggestionItems="{}" suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Vendor"/>
+								<Input id="lifnr" type="Text" value="{advCreateHDRModel>/vendor}" textFormatMode="Key" placeholder="Enter Vendor name..."
+									showSuggestion="true" showValueHelp="true" suggestionItemSelected="suggestionItemSelected" enabled="false" maxLength="10"
+									valueHelpRequest="handleCmnValueHelp" suggestionItems="{}" suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Bank Reference Number"/>
+								<Input value="" type="Number" id="bankrefno"/>
+								<Label text="Bank Advice Details"/>
+								<Input value="" id="bnkadvdet"/>
+								<Label text="Bank Reference Date"/>
+								<DatePicker value="{ path: 'Lists1>/indentdt',formatter: 'Container.Formatter.convertToSAPdate' }" id="bankrefdate"
+									valueFormat="yyyy-MM-ddT00:00:00" displayFormat="dd/MM/yyyy"/>
+								<core:Title/>
+								<Label text="Bank Remittance Date"/>
+								<DatePicker value="{ path: 'Lists1>/indentdt',formatter: 'Container.Formatter.convertToSAPdate' }" id="remittancedate"
+									valueFormat="yyyy-MM-ddT00:00:00" displayFormat="dd/MM/yyyy"/>
+								<Label text="Purpose Of Foreign Exchange"/>
+								<Input value="" id="purpofx"/>
+								<Label text="Advance Payment Amount"/>
+								<Input value="{advCreateHDRModel>/advamountfc}" editable="false" type="Number" liveChange="changeValue" id="advamountfc"/>
+								<Input id="fcurr" width="9.1rem" editable="false" placeholder="currency" type="Text" value="{advCreateHDRModel>/waers}" textFormatMode="Key"
+									showSuggestion="true" showValueHelp="true" suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10"
+									valueHelpRequest="handleCmnValueHelpCurr" suggestionItems="{}" suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Exchange Rate"/>
+								<Input value="{advCreateHDRModel>/kursf}" id="kursf"/>
+								<Label text="Advance Payment in INR"/>
+								<Input value="{advCreateHDRModel>/advamountlc}" editable="false" type="Number" id="advamountlc" liveChange="changeValue"/>
+							</f:content>
+						</f:SimpleForm>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://contacts" text="Bank Details">
+						<f:SimpleForm id="bankdetailsform" title="Bank Details" editable="true" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6"
+							labelSpanM="6" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3"
+							columnsL="2" columnsM="2" singleContainerFullSize="false">
+							<f:content>
+								<core:Title/>
+								<Label text="Remittance Bank"/>
+								<!--field doubt -->
+								<Input id="bankl" type="Text" value="{Lists1>/lifnr}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+									suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleCmnValueHelpBnk" suggestionItems="{}"
+									suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Account ID"/>
+								<Input id="accidd" type="Text" value="{Lists1>/lifnr}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+									suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleCmnValueHelp" suggestionItems="{}"
+									suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="AD Code"/>
+								<Input value="" type="Number" id="hktid"/>
+								<Label text="Swift Code"/>
+								<Input value="" type="Number" id="swift"/>
+								<core:Title/>
+								<Label text="Beneficiary Bank"/>
+								<Input id="benbankl" type="Text" value="{Lists1>/lifnr}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+									suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleCmnValueHelpBnk" suggestionItems="{}"
+									suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Currency"/>
+								<Input id="bankcurr" type="Text" value="{advCreateHDRModel>/waers}" textFormatMode="Key" showSuggestion="true"
+									showValueHelp="true" suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleCmnValueHelpCurr"
+									suggestionItems="{}" suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Tele Exchange Amount"/>
+								<Input value="" type="Number" id="telexcharge"/>
+								<Label text="Swift Charge Amount"/>
+								<Input value="" type="Number" id="swiftcharges"/>
+								<Label text="Bank Comm Amount"/>
+								<Input value="" type="Number" id="bankcomm"/>
+							</f:content>
+						</f:SimpleForm>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://contacts" text="Shipment Details" key="Overweight">
+						<f:SimpleForm id="shipmentdetailsform" title="Shipment Details" editable="true" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6"
+							labelSpanM="6" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3"
+							columnsL="2" columnsM="2" singleContainerFullSize="false">
+							<f:content>
+								<Label text="Incoterms"/>
+								<Input id="inco1" type="Text" value="{Lists1>/lifnr}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+									suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleCmnValueHelpInco" suggestionItems="{}"
+									suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Country Of Origin"/>
+								<Input id="cntryorg" type="Text" value="{Lists1>/lifnr}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+									suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleCmnValueHelpCntry"
+									suggestionItems="{}" suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Consignee Country"/>
+								<Input id="consignctry" type="Text" value="{Lists1>/lifnr}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+									suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleCmnValueHelpCntry"
+									suggestionItems="{}" suggest="handleCmnValueHelp">
+									<suggestionItems>
+										<core:ListItem key="{}" text="{}" additionalText="{}"/>
+									</suggestionItems>
+								</Input>
+								<Label text="Shipment Mode"/>
+								<ComboBox id="shipmode" placeholder="Shipment mode" selectionChange="FnUpdateClassify">
+									<items>
+										<core:Item key="Air" text="Air"/>
+										<core:Item key="Sea" text="Sea"/>
+									</items>
+								</ComboBox>
+							</f:content>
+						</f:SimpleForm>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://form" key="invoice" tooltip="Invoice Details" text="Invoice Details">
+						<t:Table id="idInvTbl" visibleRowCount="4" rows="{nndoBOLDetails>/results}" title="Invoice Details" selectionMode="None">
+							<t:columns>
+								<t:Column id="invnoc">
+									<Label text="Invoice No."/>
+									<t:template>
+										<Text text="{nndoBOLDetails>bolnr}" id="invno"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="invdtc">
+									<Label text="Invoice Date."/>
+									<t:template>
+										<Text id="invdt" text="{ path: 'nndoBOLDetails>boldt', formatter: 'CLIN.Formatter.formatDate' }"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="advamount">
+									<Label text="Advance Amount"/>
+									<t:template>
+										<Text id="adv" text="{nndoBOLDetails>hawbno}"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="invcurr">
+									<Label text="Currency"/>
+									<t:template>
+										<Text text="{ path: 'nndoBOLDetails>hawbdt', formatter: 'CLIN.Formatter.formatDate' }"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="invval">
+									<Label text="Invoice Value"/>
+									<t:template>
+										<Text text="{nndoBOLDetails>mawbno}"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="invvalcurr">
+									<Label text="Currency"/>
+									<t:template>
+										<Text text="{ path: 'nndoBOLDetails>mawbdt', formatter: 'CLIN.Formatter.formatDate' }"/>
+									</t:template>
+								</t:Column>
+							</t:columns>
+						</t:Table>
+					</IconTabFilter>
+					<!--	<IconTabFilter icon="sap-icon://competitor"  -->
+					<!--	text="Texts" key="Overweight">-->
+					<!--	<Button text="{i18n>AddRow}" type="Accept" id="a65w4d" press="onAddRow"/>-->
+					<!--</IconTabFilter>-->
+				</items>
+			</IconTabBar>
+			<IconTabBar id="idItemsIconTabBars" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://form" key="invoice" tooltip="Advance Amount Value" text="Advance Amount Value">
+						<t:Table id="idItemTble" visibleRowCount="4" rows="{advCreateModel>/results}" title="Advance Amount Value" selectionMode="None">
+							<t:toolbar>
+								<Toolbar id="IdItemButtons">
+									<content>
+										<!--	<Title text="Invoice Item Details"/>-->
+										<ToolbarSpacer/>
+										<Button icon="sap-icon://add" text="Add Row" press="addItemRow" id="addItemBtns"/>
+									</content>
+								</Toolbar>
+							</t:toolbar>
+							<t:columns>
+								<!--<t:Column id="aprefnurmb" visible="false">-->
+								<!--	<Label text="Purchasing Document Nos."/>-->
+								<!--	<t:template>-->
+								<!--<Text text="" id="ebelnTble"/>-->
+								<!--		<Input value="{advCreateModel>po_so_number}" type="Number" id="ebelnTble1"/>-->
+								<!--	</t:template>-->
+								<!--</t:Column>-->
+								<t:Column id="purdocno1">
+									<Label text="Purchasing Document No."/>
+									<t:template>
+										<!--<Text text="" id="ebelnTble"/>-->
+										<!--<Input value="{advCreateModel>ebeln}" type="Number" id="ebelnTble"/>-->
+										<Input id="ebelnTblee" type="Text" value="{advCreateModel>ebeln}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+											suggestionItemSelected="suggestionItemSelected" enabled="true" maxLength="10" valueHelpRequest="handleValueHelpTypePO"
+											suggestionItems="{}" suggest="handleCmnValueHelp">
+											<suggestionItems>
+												<core:ListItem key="{}" text="{}" additionalText="{}"/>
+											</suggestionItems>
+										</Input>
+									</t:template>
+								</t:Column>
+								<t:Column id="povalue1">
+									<Label text="PO Value"/>
+									<t:template>
+										<Text text="" id="tnetwrl"/>
+										<Input value="{advCreateModel>tnetwr}" enabled="false" type="Number" id="tnetwr"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="appdvamnt">
+									<Label text="Applied Advanced Amount"/>
+									<t:template>
+										<Text text="" id="anetwrrl"/>
+										<Input value="{advCreateModel>anetwr}" enabled="false" type="Number" id="anetwr"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="advamntinr">
+									<Label text="Applied Advanced Amount In INR"/>
+									<t:template>
+										<!--<Text text="" id="anetwrloc"/>-->
+										<Input value="{advCreateModel>anetwrloc}" enabled="false" type="Number" id="anetwrloc"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="doccurr">
+									<Label text="Document Currency"/>
+									<t:template>
+										<!--<Text text="" id="waers"/>-->
+										<Input value="{advCreateModel>waers}" enabled="false" type="Text" id="waers"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="hdrDel" width= "3rem" >
+									<Label text=""/>
+									<t:template>
+										<!--<Text text="" id="waers"/>-->
+										<Button press="deleteHDRPO" type="Reject" icon="sap-icon://delete"></Button>
+									</t:template>
+								</t:Column>
+							</t:columns>
+						</t:Table>
+					</IconTabFilter>
+					<!--	<IconTabFilter icon="sap-icon://competitor"  -->
+					<!--	text="Texts" key="Overweight">-->
+					<!--	<Button text="{i18n>AddRow}" type="Accept" id="a65w4d" press="onAddRow"/>-->
+					<!--</IconTabFilter>-->
+				</items>
+			</IconTabBar>
+			<IconTabBar id="idItemsIconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://form" key="invoice" tooltip="Fill Advance Details" text="Fill Advance Details">
+						<t:Table id="idItemTbl" rowSelectionChange="OnSelectChange" visibleRowCount="4" rows="{advCreateItemModel>/results}" title="Fill Advance Details" selectionMode="MultiToggle">
+							<t:toolbar>
+								<Toolbar id="IdItemButton">
+									<content>
+										<Label text="Selection Type :"/>
+										<Text id="seltyp" width="10rem" text=" "/>
+										<Label text="Purchasing Document Number"/>
+										<ComboBox id="selectionbased1" items="{advCreateModel>/results}" placeholder="Purchasing Document Number" selectionChange="FnUpdateClassify">
+											<items>
+												<core:Item key="{advCreateModel>ebeln}" text="{advCreateModel>ebeln}"/>
+											</items>
+										</ComboBox>
+										<ToolbarSpacer/>
+										<!--<Button icon="sap-icon://add" text="Add Row" press="addItemRows" id="addItemBtnITM"/>-->
+									</content>
+								</Toolbar>
+							</t:toolbar>
+							<t:columns>
+								<t:Column id="purdocno">
+									<Label text="Purchasing Document No."/>
+									<t:template>
+										<Input id="ebelnTbl" type="Text" value="{advCreateItemModel>ebeln}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+											suggestionItemSelected="suggestionItemSelected" enabled="false" maxLength="10" valueHelpRequest="handleCmnValueHelp" suggestionItems="{}"
+											suggest="handleCmnValueHelp">
+											<suggestionItems>
+												<core:ListItem key="{}" text="{}" additionalText="{}"/>
+											</suggestionItems>
+										</Input>
+									</t:template>
+								</t:Column>
+								<t:Column id="itemnum">
+									<Label text="Item Number"/>
+									<t:template>
+										<Text text="" id="ebelpl"/>
+										<Input value="{advCreateItemModel>ebelp}" enabled="false" type="Number" id="ebelp"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="matnr_num">
+									<Label text="Material Number"/>
+									<t:template>
+										<Input value="{advCreateItemModel>matnr}" enabled="false" type="Text" id="matnr"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="desc">
+									<Label text="Description" id="maktxl"/>
+									<t:template>
+										<Input value="{advCreateItemModel>maktx}" enabled="false" type="Text" id="maktx"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="poquant">
+									<Label text="PO Quantity" id="mengel"/>
+									<t:template>
+										<Input value="{advCreateItemModel>menge}" enabled="false" type="Number" id="menge"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="applquant" visible="true">
+									<Label text="Applied Quantity" id="amengel"/>
+									<t:template>
+										<Input value="{advCreateItemModel>amenge}"  liveChange="calculateAmount" enabled="false" type="Number" id="amenge"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="unit_tbl">
+									<Label text="Unit" id="unit"/>
+									<t:template>
+										<Input id="meins" type="Text" value="{advCreateItemModel>meins}" textFormatMode="Key" showSuggestion="true" showValueHelp="true"
+											suggestionItemSelected="suggestionItemSelected" enabled="false" maxLength="10" valueHelpRequest="handleCmnValueHelp" suggestionItems="{}"
+											suggest="handleCmnValueHelp">
+											<suggestionItems>
+												<core:ListItem key="{}" text="{}" additionalText="{}"/>
+											</suggestionItems>
+										</Input>
+									</t:template>
+								</t:Column>
+								<t:Column id="netprice">
+									<Label text="Net Price" id="netprl"/>
+									<t:template>
+										<Input value="{advCreateItemModel>netpr}" enabled="false" type="Number" id="netpr"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="povalue">
+									<Label text="PO Value" id="netwrl"/>
+									<t:template>
+										<Input value="{advCreateItemModel>netwr}" enabled="false" type="Number" id="netwr"/>
+									</t:template>
+								</t:Column>
+								<t:Column id="appliedval">
+									<Label text="Applied Amount" id="anetwrl"/>
+									<t:template>
+										<Input value="{advCreateItemModel>anetwr}" enabled="false" liveChange="calculateValue" type="Number" id="anetwr1"/>
+									</t:template>
+								</t:Column>
+							</t:columns>
+						</t:Table>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Save" icon="sap-icon://write-new" press="onPressSave"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+	<!--	</pages>-->
+	<!--</App>-->
+</mvc:View>

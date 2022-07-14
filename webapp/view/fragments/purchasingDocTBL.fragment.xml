@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Purchasing Document No" class="sapUiPopupWithPadding"
+		items="{cmnService>/xBRIxI_PO_SO_UPLD}" confirm="_handleValueHelpPOTBL"
+		cancel="_handleValueHelpPOTBL" liveChange="_handleValueHelpSearchCmpny">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{cmnService>po_so_number}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

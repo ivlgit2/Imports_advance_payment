@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Create Conditions" contentWidth="30%" id="ListDialog" afterClose="onAfterClose">
+		<f:SimpleForm id="shipmentdetailsform" title="" editable="true" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6"
+			labelSpanM="6" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3"
+			columnsL="2" columnsM="2" singleContainerFullSize="false">
+			<f:content>
+				<Label text="With Reference To"/>
+				<ComboBox id="selectionbased" required = "true" placeholder="reference to" selectionChange="FnUpdateClassify">
+					<items>
+						<core:Item key="PO" text="Purchase Order"/>
+						<core:Item key="CO" text="Contract"/>
+						<core:Item key="SC" text="Scheduling Agreement"/>
+					</items>
+				</ComboBox>
+				<Label text="Reference Document Number"/>
+				<Input enabled="{State>/enable}" required = "true" type="Text" value="{Lists>contype}" maxLength="10" showSuggestion="true" showValueHelp="true"
+					valueHelpRequest="handleValueHelpTypePO" suggestionItems="{path: 'masterdata>/results',templateShareable: false}" suggest="handleCmnValueHelp"
+					id="pOtype">
+					<suggestionItems>
+						<core:ListItem key="{masterdata>Title}" text="{masterdata>Title}" additionalText="{masterdata>Description}"/>
+					</suggestionItems>
+				</Input>
+				<Label text="Calculation Type"/>
+				<ComboBox id="selectionbasedon" required = "true" placeholder="selection type" selectionChange="FnUpdateClassifyCT">
+					<items>
+						<core:Item key="Q" text="Quantity Based"/>
+						<core:Item key="V" text="Value Based"/>
+					</items>
+				</ComboBox>
+			</f:content>
+		</f:SimpleForm>
+		<Toolbar>
+			<ToolbarSpacer/>
+			<Button press="onDialogClose" text="Go To Create" id="save" visible="true" type="Accept" icon="sap-icon://save"/>
+		</Toolbar>
+	</Dialog>
+</core:FragmentDefinition>
